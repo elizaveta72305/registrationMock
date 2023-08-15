@@ -1,0 +1,37 @@
+<div class="registration-container">
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="fullName">{{ languageService.getTranslations()?.[languageService.selectedLanguage]?.fullName }}:</label>
+      <input id="fullName" formControlName="fullName">
+      <div *ngIf="registrationForm.get('fullName')?.hasError('required') && registrationForm.get('fullName')?.touched" class="invalid-feedback">
+        Full name is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="preferredLanguage">{{ languageService.getTranslations()?.[languageService.selectedLanguage]?.preferredLanguage }}:</label>
+      <select id="preferredLanguage" (change)="onLanguageChange($event)" formControlName="preferredLanguage">
+        <option value="english">English</option>
+        <option value="russian">Русский</option>
+      </select>
+      <div *ngIf="registrationForm.get('preferredLanguage')?.hasError('required') && registrationForm.get('preferredLanguage')?.touched" class="invalid-feedback">
+        Preferred language is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="phoneNumber">{{ languageService.getTranslations()?.[languageService.selectedLanguage]?.phoneNumber }}:</label>
+      <input id="phoneNumber" formControlName="phoneNumber">
+      <div *ngIf="registrationForm.get('phoneNumber')?.hasError('required') && registrationForm.get('phoneNumber')?.touched" class="invalid-feedback">
+        Phone number is required.
+      </div>
+      <div *ngIf="registrationForm.get('phoneNumber')?.hasError('pattern') && registrationForm.get('phoneNumber')?.touched" class="invalid-feedback">
+        Phone number must be 10 digits.
+      </div>
+    </div>
+
+    <app-face-recognition></app-face-recognition>
+
+    <button type="submit">{{ languageService.getTranslations()?.[languageService.selectedLanguage]?.registerButton }}</button>
+  </form>
+</div>
